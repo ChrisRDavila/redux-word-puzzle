@@ -1,10 +1,9 @@
 import React from 'react'
-// import '../App.css'
 import Header from './Header'
 import GameControl from './GameControl'
 
 
-function App() {
+export default function App() {
   return (
     <div>
       <Header />
@@ -12,5 +11,3 @@ function App() {
     </div>
   )
 }
-
-export default App

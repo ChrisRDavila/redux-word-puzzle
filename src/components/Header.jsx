@@ -1,4 +1,4 @@
-function Header() {
+export default function Header() {
   return (
     <>
       <h1>Redux Word Puzzle!</h1>
@@ -6,4 +6,3 @@ function Header() {
     </>
   )
 }
-export default Header;
