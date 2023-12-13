@@ -1,10 +1,7 @@
 import Word from './Guess'
 import Letters from './Letters'
-import Word from './Guess'
+import RandomWord from './RandomWord'
 import PropTypes from 'prop-types';
-
-const guessWord = [touch, flick, fiddle, fumble, fudge]
-
 
 const input = "a"
 function checkGuess(input) {
@@ -30,7 +27,7 @@ function checkGuess(input) {
 function CurrentRound(props) {
   return (
     <>
-      <Word  
+      <RandomWord setWord={setWord} 
       />
       <Letters />
     </>

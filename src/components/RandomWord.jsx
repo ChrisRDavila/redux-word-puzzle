@@ -2,21 +2,26 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useState } from "react";
 
-const words = [ adore, amore, amour, diety, flame, heart, honey ];
+const words = [ 'adore', 'amore', 'amour', 'diety', 'flame', 'heart', 'honey' ];
 
 function handleStartGame(fn) {
   const word = words[Math.floor(Math.random() * words.length )];
   fn(word);
 }
 
-function RandomWord() {
-  const [word, setWord] = useState(null);
+export default function RandomWord(props) {
+  const [word] = useState(null);
   return (
-    <div>
-      <button onClick={setWord}>Start Game</button>
-      <p>{word}</p> 
-    </div>
+    <>
+      <button onClick={() => {
+        handleStartGame(setWord);
+      props.setWord(word)
+    }}>Start Game</button>
+      <div>{word}</div>
+    </>
   );
 }
 
-export default RandomWord;
+RandomWord.propTypes = {
+  setWord: PropTypes.func,
+};
