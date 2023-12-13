@@ -1,35 +1,22 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { useState } from "react";
 
-const guessWords = [
-  adore, amore, amour, diety, flame, heart, honey 
-]
+const words = [ adore, amore, amour, diety, flame, heart, honey ];
 
-
-function handleStartGame (event) {
-  event.preventDefault();
-
-  props.getWord() {
-  const words = guessWords;
-  const word = words[Math.floor(Math.random() * words.length )]
-  return word;
+function handleStartGame(fn) {
+  const word = words[Math.floor(Math.random() * words.length )];
+  fn(word);
 }
-}
-function RandomWord(props){
+
+function RandomWord() {
+  const [word, setWord] = useState(null);
   return (
-  <div>
-  <form whenStartClicked={props.handleStartGame}>
-    <button type="submit">Start Game</button>
-  </form>
-  <p>{props.word}</p> 
-  {/* doesnt need to be visible passing prop */}
-  </div>
-  )
-}
-
-RandomWord.propTypes = {
-  word: PropTypes.string,
-  getWord: PropTypes.func
+    <div>
+      <button onClick={setWord}>Start Game</button>
+      <p>{word}</p> 
+    </div>
+  );
 }
 
 export default RandomWord;

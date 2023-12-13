@@ -20,7 +20,7 @@ function checkGuess(input) {
   })
 }
 
-const randomWord = words[Math.floor(Math.random() * words.length)]  
+// const randomWord = words[Math.floor(Math.random() * words.length)]  
     
   //update word based on index postion
 
