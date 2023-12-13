@@ -3,6 +3,9 @@ import Letters from './Letters'
 import RandomWord from './RandomWord'
 import PropTypes from 'prop-types';
 
+// given a Letters letter, random words word and Guesses array, 
+//will change state of array based on letter guess checked against 
+//RandomWord word, will als increment turn
 const input = "a"
 function checkGuess(input) {
   let splitWord = [];

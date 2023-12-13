@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <Header />
-      <RandomWord />
+      <GameControl />
     </div>
   )
 }

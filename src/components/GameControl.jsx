@@ -6,14 +6,18 @@ class GameControl extends React.Component {
 constructor(props) {
   super(props);
   this.state = {
-    gameStats: {
-      wins: 0,
-      losses: 0,
-      currentRound: 0
-    }, 
-    word: [],
+    guess: 0,
+    toGuess: [],
+    answer: randomWord()
   }
 }
+  resetGame() {
+    this.setState({
+      guess: 0,
+      toGuess: [_,_,_,_,_],
+      answer: randomWord()
+    });
+  }
 
   render(){
 
@@ -26,3 +30,6 @@ constructor(props) {
 }
 }
 export default GameControl;
+
+//should stats be passed up here or only to Current Round? 
+//also should we get rid of GameView?

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useState } from "react";
 
+// this module will give us a new word for our game upon start game based on random
 const words = [ 'adore', 'amore', 'amour', 'diety', 'flame', 'heart', 'honey' ];
 
 function handleStartGame(fn) {
@@ -10,7 +11,7 @@ function handleStartGame(fn) {
 }
 
 export default function RandomWord(props) {
-  const [word] = useState(null);
+  const [word, setWord ] = useState(null);
   return (
     <>
       <button onClick={() => {
