@@ -2,21 +2,17 @@ import PropTypes from "prop-types";
 
 const turn = 0;
 // this module will submit value for letter chosen, remove letter from letter list or create array of letters you cant choose
-const letterArray = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z];
-let guessedArray = [randomWords];
+const letterArray = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+let guessedArray = []; // had randomWords in this array
 function letterClickfunction(props) {
   if (letterArray.includes(letter)) {
     guessedArray.push(letterInput);
-  }
-}
+  } 
 
-function countTurn() {
-  turn += 1;
-  if (turn === 5) {
-    alert("You Lose!")
   }
-  return turn;
-}
+
+
+
 
 
 export default function Letters(props) {
@@ -73,7 +69,7 @@ Letters.propTypes = {
 //       key={index}
 //       value={ltr}
 //       onClick={handleGuess}
-//       disabled={guessed.has(ltr)}
+//       availableList=}
 //     >
 //       {ltr}
 //     </button>

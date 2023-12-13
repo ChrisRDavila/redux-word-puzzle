@@ -1,24 +1,7 @@
-import Word from './Guess'
-import Letters from './Letters'
-import RandomWord from './RandomWord'
-import PropTypes from 'prop-types';
 
-// given a Letters letter, random words word and Guesses array, 
-//will change state of array based on letter guess checked against 
-//RandomWord word, will als increment turn
-const input = "a"
-function checkGuess(input) {
-  let splitWord = [];
-  chosenWord.forEach((letter) => {
-    if (letter === input) {
-      splitWord.push(letter)
-    }
-    else {
-      splitWord.push("-")
-    }
-    return splitWord
-  })
-}
+const availableWordList = ["word1","word2","word3"];
+const selectedWord = availableWordList[Math.floor(Math.random() * availableWordList.length )]
+
 
 // const randomWord = words[Math.floor(Math.random() * words.length)]  
     
@@ -27,21 +10,21 @@ function checkGuess(input) {
 // import guessWord, import letter, import Word. check guessWord to see if import letter
 //included, if included update word based of index postion and correct or dont update if not
 
-function CurrentRound(props) {
-  return (
-    <>
-      <RandomWord setWord={setWord} 
-      />
-      <Letters />
-    </>
-  )
-}
+// function CurrentRound(props) {
+//   const [word, setWord] = useState(null);
+//   return (
+//     <>
+//       <RandomWord setWord={setWord} 
+//       />
+//       <Letters 
+//         letterClickFunction={handleGuess}
+//       />
+//     </>
+//   )
+// }
 
-CurrentRound.propTypes = {
-  word: PropTypes.array,
-}
+// CurrentRound.propTypes = {
+//   word: PropTypes.array,
+// }
 
-export default CurrentRound;
-
-
-// gameControl > GameView > CurrentRound() > Words(--s-) pass up guessWord, Letters(a) submit letter
+// export default CurrentRound;
