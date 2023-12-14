@@ -6,7 +6,3 @@ export default defineConfig({
   plugins: [react()],
 })
 
-// npm install jest --save-dev
-
-// npm install @testing-library/react --save-dev
-// npm install ts-jest @types/jest --save-dev
