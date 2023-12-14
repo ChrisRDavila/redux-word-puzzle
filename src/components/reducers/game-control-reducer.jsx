@@ -3,13 +3,21 @@ const reducer = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_LETTER':
       return Object.assign({}, state, {
-        turn: turn,
-        toGuess: toGuess,
-        answer: answer,
         usedLetters: usedLetters
         }
       );
-    default: null
+    case 'COUNT_TURN':
+    return Object.assign({}, state, {
+      turn: turn,
+      }
+    );
+    case 'ADD_ANSWER':
+    return Object.assign({}, state, {
+      answer: answer,
+      }
+    );
+
+    default:
       return state  
     }
   };
