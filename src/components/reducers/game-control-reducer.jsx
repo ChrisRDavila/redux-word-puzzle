@@ -7,15 +7,19 @@ const reducer = (state = {}, action) => {
         }
       );
     case 'COUNT_TURN':
-    return Object.assign({}, state, {
-      turn: turn,
-      }
-    );
+      return Object.assign({}, state, {
+        turn: turn,
+        }
+      );
     case 'ADD_ANSWER':
-    return Object.assign({}, state, {
-      answer: answer,
-      }
-    );
+      return Object.assign({}, state, {
+        answer: answer,
+        }
+      );
+    case 'ADD_GUESS':
+      return Object.assign({}, state, {
+        toGuess: toGuess,
+      });
 
     default:
       return state  

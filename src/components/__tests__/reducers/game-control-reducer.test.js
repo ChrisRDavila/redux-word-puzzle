@@ -1,4 +1,3 @@
-import { a } from 'vitest/dist/suite-9ReVEt_h.js';
 import gameControlReducer from '../../reducers/game-control-reducer.jsx';
 import { expect, test, describe } from 'vitest'
 
@@ -61,16 +60,17 @@ import { expect, test, describe } from 'vitest'
     });
   });
 
-  // test('should update our guess with guess array with ADD_GUESS action', () => {
-  //   const { turn, toGuess, answer, usedLetters } = defaultState;
-  //   action = {
-  //     type: 'ADD_ANSWER'
-  //   };
-  //   expect(gameControlReducer(defaultState, action)).toEqual({
-  //     turn: 1,
-  //     answer: '',
-  //     usedLetters: [],
-      
-  //   });
-  // });
+  test('should update our guess with guess array with ADD_GUESS action', () => {
+    const { turn, toGuess, answer, usedLetters } = defaultState;
+    action = {
+      type: 'ADD_GUESS',
+      toGuess: ['h', 'e', 'a', 'r', 't'],
+    };
+    expect(gameControlReducer(defaultState, action)).toEqual({
+      turn: 1,
+      answer: '',
+      usedLetters: [],
+      toGuess: ['h', 'e', 'a', 'r', 't'],
+    });
+  });
 });
