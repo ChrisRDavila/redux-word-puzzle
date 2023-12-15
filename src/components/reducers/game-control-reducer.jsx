@@ -3,12 +3,12 @@ const reducer = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_LETTER':
       return Object.assign({}, state, {
-        usedLetters: usedLetters
+        usedLetters: {...usedLetters}
         }
       );
     case 'COUNT_TURN':
       return Object.assign({}, state, {
-        turn: turn,
+        turn: turn
         }
       );
     case 'ADD_ANSWER':

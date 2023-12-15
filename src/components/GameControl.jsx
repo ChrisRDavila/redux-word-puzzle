@@ -1,140 +1,145 @@
-import React from 'react';
-import Letters from './Letters';
-import PropTypes from 'prop-types';
-import { setState } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-
+import React from "react";
+import Letters from "./Letters";
+import PropTypes from "prop-types";
+import { setState } from "react";
+import { connect } from "react-redux";
+import { v4 } from "uuid";
 
 class GameControl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      turn: 0,
-      toGuess: [],
-      answer: "",
-      // usedLetters: [],
-    };
+    this.state = {}
   }
 
-  // handleUpDate  = (letter) => {
-  //   let updatedUsedLetters = [...this.state.usedLetters];
-  //   updatedUsedLetters.push(letter);
-  //   const { dispatch } = this.props;
-  //   const action = {
-  //     type: 'ADD_LETTER',
-  //     usedLetters: this.state.usedLetters
-  //   }
-  //   dispatch(action);
-  //   this.setState({usedLetters: updatedUsedLetters});
-  // }
-
-  //let updatedUsedLetters = [...this.state.usedLetters];
-  // updatedUsedLetters.push(letter);
-  // this.setState({usedLetters: updatedUsedLetters});
-
-  handleSetLetter = () => {
+  handleSetLetter = (newUsedLetters) => {
     const { dispatch } = this.props;
     const action = {
-      type: 'ADD_LETTER',
-      usedLetters: this.state.usedLetters
-      // usedLetters: this.props.usedLetters?
-    }
+      type: "ADD_LETTER",
+      usedLetters: { ...newUsedLetters },
+    };
     dispatch(action);
-    this.setState({usedLetters: updatedUsedLetters});
+  };
 
-  }
-  
-  // handleToGuess = (letter) => {
+  handleSetGuess = (newGuess) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: "ADD_GUESS",
+      toGuess: newGuess,
+    };
+    dispatch(action);
+  };
 
-  // }
+  handleSetTurn = (newTurn) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: "COUNT_TURN",
+      turn: newTurn,
+    };
+    dispatch(action);
+  };
 
-
+  handleSetAnswer = (newAnswer) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: "ADD_ANSWER",
+      answer: newAnswer,
+    };
+    dispatch(action);
+  };
 
   handleGuess = (letter) => {
-    const updatedtoGuess = [...this.state.toGuess]
-    if(this.state.answer.includes(letter)) {
-      for(let i = 0; i < this.state.answer.length; i++){
-        if(this.state.answer[i]=== letter){
+    const updatedtoGuess = { ...this.props.toGuess };
+    if (this.props.answer.includes(letter)) {
+      for (let i = 0; i < this.props.answer.length; i++) {
+        if (this.props.answer[i] === letter) {
           updatedtoGuess[i] = letter;
-          this.setState({toGuess: updatedtoGuess});
+          this.handleSetGuess(updatedtoGuess);
         }
       }
     } else {
       this.countTurn();
     }
-    // let updatedUsedLetters = [...this.props.usedLetters];
-    let updatedUsedLetters = [...this.state.usedLetters];
-    updatedUsedLetters.push(letter);
-    // this.setState({usedLetters: updatedUsedLetters});
-    this.handleSetLetter();
+    const copyOfUsedLetters = { ...this.props.usedLetters };
+    copyOfUsedLetters[v4()] = letter;
+    this.handleSetLetter(copyOfUsedLetters);
 
-    if(!updatedtoGuess.includes("_")){
-      window.alert("You win!")
+    if (!Object.values(updatedtoGuess).includes("_")) {
+      window.alert("You win!");
     }
-    if(this.state.turn === 6) {
+    if (this.props.turn === 6) {
       window.alert("Try again");
     }
-  } ;
+  };
 
   countTurn = () => {
-    let tempTurn = this.state.turn
+    let tempTurn = this.props.turn;
     tempTurn += 1;
-    this.setState({turn: tempTurn}) 
-  }
+    this.handleSetTurn(tempTurn);
+  };
 
   generateRandomWord = () => {
-    const availableWordList = ['adore', 'amore', 'amour', 'flame', 'heart', 'honey'];
-    const selectedWord = availableWordList[Math.floor(Math.random() * availableWordList.length )]
-    this.setState({
-      answer: selectedWord,
-      toGuess: ["_","_","_","_","_"],
-      turn: 0,
-      usedLetters: []
-    });
-  }
+    const availableWordList = [
+      "adore",
+      "amore",
+      "amour",
+      "flame",
+      "heart",
+      "honey",
+    ];
+    const selectedWord =
+      availableWordList[Math.floor(Math.random() * availableWordList.length)];
+    this.handleSetAnswer(selectedWord);
+    this.handleSetLetter({});
+    this.handleSetGuess({ 0: "_", 1: "_", 2: "_", 3: "_", 4: "_" });
+    this.handleSetTurn(0);
+  };
 
-  render(){
+  render() {
     let showGame;
     let buttonText = "Start";
-    if (this.state.answer != "") {
-      buttonText = "Reset"
+    let guessedLettersInfo;
+    if (this.props.usedLetters) {
+      guessedLettersInfo = (
+        <p>Guessed Letters: {Object.values(this.props.usedLetters)} </p>
+      );
+    }
+    if (this.props.turn >= 0) {
+      buttonText = "Reset";
       showGame = (
         <>
-          <h3>Word to Guess: {this.state.toGuess} </h3>
-          <p>Incorrect Attempts: {this.state.turn} </p>
-          <p>Guessed Letters: {this.state.usedLetters} </p>
-          {/* <p>Guessed Letters: {this.props.usedLetters} </p> */}
-          <Letters 
+          <h3>Word to Guess: {Object.values(this.props.toGuess)} </h3>
+          <p>Incorrect Attempts: {parseInt(this.props.turn)} </p>
+          {guessedLettersInfo}
+          <Letters
             letterClickFunction={this.handleGuess}
-            usedLetters={this.state.usedLetters}
-            // usedLetters={this.props.usedLetters}
-            />
+            usedLetters={this.props.usedLetters}
+          />
         </>
-      )
+      );
     }
-  return (
-    <>
-      <button onClick={this.generateRandomWord}>{buttonText}</button>
-      {showGame}
-      
-    </>
-  )
-}
-
+    return (
+      <>
+        <button onClick={this.generateRandomWord}>{buttonText}</button>
+        {showGame}
+      </>
+    );
+  }
 }
 
 GameControl.propTypes = {
   answer: PropTypes.string,
-  toGuess: PropTypes.array,
+  toGuess: PropTypes.object,
   turn: PropTypes.number,
-  usedLetters: PropTypes.array,
-}
-const mapStateToProps = state => {
+  usedLetters: PropTypes.object,
+};
+const mapStateToProps = (state) => {
   return {
-    answer: state.answer,
-  }
-}
+    usedLetters: state.usedLetters,
+    toGuess: state.toGuess,
+    turn: state.turn,
+    answer: state.answer
+  };
+};
 
 GameControl = connect(mapStateToProps)(GameControl);
 
